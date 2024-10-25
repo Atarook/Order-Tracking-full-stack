@@ -22,7 +22,7 @@ const CreateUser=async(req,res)=>{
 }
 const loginUser=async (req,res)=>{
     try{
-        const {password,email}=req.body
+        const {email,password}=req.body
         //const users=await user.findOne({password:password},{email:email} )
         const loggedinusers=await user.findOne({$and:[{ password }, { email }]}  )
         if (!loggedinusers) {
