@@ -1,25 +1,24 @@
 const app=require('express')
 const user=require('../models/user')
-
-
-const CreateUser=async(req,res)=>{
-    try{
-        const {name,password,email,phone}=req.body
-        const users=await user.findOne({ $or: [{ name }, { email }] } )
-        if (users) {
-            console.log('User already exists:', users);
-            return res.status(400).json({ msg: "User already exists" });
-        }
-
-        const newUser = await user.create(req.body);
-        res.status(201).json(newUser);
+const CreateUser = async (req, res) => {
+  try {
+    const { name, password, email, phone } = req.body;
+    const users = await user.findOne({ $or: [{ name }, { email }] });
+    if (users) {
+      console.log('User already exists:', users);
+      return res.status(400).json({ msg: "User already exists" });
     }
-    catch(error){
-        res.status(400).json({msg:error})
-        console.log(error)
+    const newUser = await user.create(req.body);
+    res.status(201).json({ msg: "User created successfully", data: newUser });
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      const errors = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({ msg: errors.join(', ') });
     }
-
-}
+    res.status(400).json({ msg: "Error creating user", error: error.message });
+    console.log(error);
+  }
+};
 const loginUser=async (req,res)=>{
     try{
         const {email,password}=req.body

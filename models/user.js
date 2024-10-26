@@ -17,10 +17,13 @@ const userSchema = mongoose.Schema({
   password: {
     type: String,
     required: true,
+    minlength: [6, 'Password must be at least 6 characters long.'], // Validation rule here
   },
   phone: {
     type: String,
     required: true,
+    minlength: [11, 'Phone number must be exactly 11 digits.'],
+    maxlength: [11, 'Phone number must be exactly 11 digits.'],
   },
 });
 
