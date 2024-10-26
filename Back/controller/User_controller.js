@@ -22,7 +22,7 @@ const CreateUser = async (req, res) => {
 const loginUser=async (req,res)=>{
     try{
         const {email,password}=req.body
-        //const users=await user.findOne({password:password},{email:email} )
+        //const users=await user.findOne({password:password},{email:email} )
         const loggedinusers=await user.findOne({$and:[{ password }, { email }]}  )
         if (!loggedinusers) {
             console.log('User does not exist');
@@ -33,7 +33,7 @@ const loginUser=async (req,res)=>{
     catch(error){
         res.status(400).json({msg:error})
         console.log(error)
-    }   
+    }
 
 
 }
