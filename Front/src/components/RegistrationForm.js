@@ -24,28 +24,31 @@ const RegistrationForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      setMessage("Passwords do not match!");
-      return;
-    }
+  if (formData.password !== formData.confirmPassword) {
+    setMessage("Passwords do not match!");
+    setMessageType("error");
+    return;
+  }
 
-    try {
-      const response = await axios.post("http://localhost:8000/registers", {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-        phone: formData.phone,
-      });
-      setMessage("Registration successful!");
-      setFormData({ name: "", email: "", password: "", confirmPassword: "", phone: "" });
-      setMessageType("success");
-    } catch (error) {
-      setMessageType("error");
-      setMessage("Registration failed! Please try again.");
-    }
-  };
+  try {
+    const response = await axios.post("http://localhost:8000/registers", {
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+      phone: formData.phone,
+    });
+    setMessageType("success");
+    setMessage("Registration successful!");
+    setFormData({ name: "", email: "", password: "", confirmPassword: "", phone: "" });
+  } catch (error) {
+    const errorMessage = error.response?.data?.msg || "Registration failed! Please try again.";
+    setMessageType("error");
+    setMessage(Array.isArray(errorMessage) ? errorMessage.join(", ") : errorMessage);
+  }
+};
+
 
   return (
     <div className="form-container">

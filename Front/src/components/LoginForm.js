@@ -10,21 +10,19 @@ const LoginForm = () => {
   const [messageType, setMessageType] = useState(''); // State for message type
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log('Submitting form...');
+  e.preventDefault();
 
-    try {
-      console.log(email + password);
-      const response = await axios.post('http://localhost:8000/login', { email, password });
-      console.log('Login Success:', response.data);
-      setMessageType("success");
-      setMessage("Login successful!"); // Set success message
-    } catch (error) {
-      console.error('Login Failed:', error.response ? error.response.data : error.message);
-      setMessageType("error");
-      setMessage("Login failed! Please check your credentials."); // Set error message
-    }
-  };
+  try {
+    const response = await axios.post("http://localhost:8000/login", { email, password });
+    setMessageType("success");
+    setMessage("Login successful!");
+  } catch (error) {
+    const errorMessage = error.response?.data?.msg || "Login failed! Please try again.";
+    setMessageType("error");
+    setMessage(Array.isArray(errorMessage) ? errorMessage.join(", ") : errorMessage);
+  }
+};
+
 
   return (
     <div className="form-container">

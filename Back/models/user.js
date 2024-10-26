@@ -13,6 +13,7 @@ const userSchema = mongoose.Schema({
   email: {
     type: String,
     required: true,
+    match: [/.+@.+\..+/, 'Please enter a valid email address'], // Custom email validation
   },
   password: {
     type: String,
@@ -20,10 +21,10 @@ const userSchema = mongoose.Schema({
     minlength: [6, 'Password must be at least 6 characters long.'], // Validation rule here
   },
   phone: {
-    type: Number,
+    type: String,
     required: true,
-    minlength: [11, 'Phone number must be exactly 11 digits.'],
-    maxlength: [11, 'Phone number must be exactly 11 digits.'],
+    required: true,
+    match: [/^\d{11}$/, 'Phone number must be exactly 11 digits.'], // Regex for exactly 11 digits
   },
 });
 
