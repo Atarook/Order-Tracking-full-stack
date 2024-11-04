@@ -34,6 +34,62 @@ const CreateOrder = async (req, res) => {
     res.status(400).json({ msg: "Error creating order", error: error.message });
   }
 };
+const GetUserOrders = async (req, res) => {
+  try {
+    const {userId} = req.user; 
+    console.log("userId",userId);
+    // Ensure the userId is the logged-in user
+    // const user = await User.findOne({ userId });
+    // console.log("adadsadw");
+
+    // if (!user) {
+    //   return res.status(404).json({ msg: "User not found" });
+    // }
+
+    const orders = await Order.find({userId});
+    res.status(200).json({ data: orders });
+  } catch (error) {
+    res.status(400).json({ msg: "Error fetching orders", error: error.message });
+  }
+};
+
+const getOrderBYid = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const {userId} = req.user; 
+    const orders = await Order.find({userId});
+
+    const order = await orders.find(order => order._id == id);
+
+    const courierId = order.courieruserId;
+    const courier = await User.findOne({userId:courierId});
+    const { name, email, phone } = courier;
+    console.log(courier);
+    
+    res.status(200).json({ data: order, courier: { name, email, phone } });
 
 
-module.exports = { CreateOrder };
+} catch (error) {
+    res.status(400).json({ msg: "Error fetching orders", error: error.message });
+  }
+};
+const CancelOrder = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const {userId} = req.user; 
+    const orders = await Order.find({userId});
+    const order = await orders.find(order => order._id == id);
+    if (order.status === 'pending') {
+      order.status = 'canceled';
+      await order.save();
+      res.status(200).json({ msg: "Order canceled successfully", data: order });
+    } else {
+      res.status(400).json({ msg: "Order cannot be canceled", data: order });
+    }
+  }
+
+catch (error) {
+    res.status(400).json({ msg: "Error fetching orders", error: error.message });
+  }
+}
+module.exports = { CreateOrder, GetUserOrders ,getOrderBYid ,CancelOrder};

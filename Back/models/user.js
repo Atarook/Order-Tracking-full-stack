@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Order = require('./Order');
 const mongoose_seq = require('mongoose-sequence')(mongoose);
 
 const userSchema = mongoose.Schema({
@@ -14,6 +15,12 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
     match: [/.+@.+\..+/, 'Please enter a valid email address'], // Custom email validation
+  },
+  role: {
+    type: String,
+    enum: ['admin', 'courier', 'customer'],
+    default: 'customer',
+    required: true,
   },
   password: {
     type: String,

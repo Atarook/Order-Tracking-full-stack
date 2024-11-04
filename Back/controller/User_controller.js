@@ -4,7 +4,7 @@ const User = require('../models/User');
 
 const CreateUser = async (req, res) => {
   try {
-    const { name, password, email, phone } = req.body;
+    const { name, password, email, role,phone } = req.body;
     const users = await User.findOne({ $or: [{ name }, { email }] });
     if (users) {
       return res.status(400).json({ msg: "User already exists" });
