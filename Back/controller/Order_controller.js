@@ -19,11 +19,11 @@ const CreateOrder = async (req, res) => {
     if (!user) {
       return res.status(404).json({ msg: "User not found" });
     }
-    const { courieruserId, pickupLocation, dropoffLocation, packageDetails, deliveryTime } = req.body;
+    const {  pickupLocation, dropoffLocation, packageDetails, deliveryTime } = req.body;
     const {_id} = user;
     console.log("adadsadw");
     // Create the new order with the userId from the authenticated user
-    const newOrder = await Order.create({ userId, courieruserId, pickupLocation, dropoffLocation, packageDetails, deliveryTime });
+    const newOrder = await Order.create({ userId, pickupLocation, dropoffLocation, packageDetails, deliveryTime });
     
     res.status(201).json({ msg: "Order created successfully", data: newOrder });
   } catch (error) {

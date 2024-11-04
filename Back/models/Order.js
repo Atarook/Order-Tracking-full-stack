@@ -11,10 +11,13 @@ const OrderSchema = mongoose.Schema({
         ref: 'user', // Reference the custom userId from User model
         required: true,
       },
+
       courieruserId: {
         type: Number,
         ref: 'user', // Reference the custom userId from User model
         required: true,
+        default: null,
+
       },
     pickupLocation: {
         type: String,

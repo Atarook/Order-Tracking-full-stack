@@ -5,6 +5,7 @@ const userRoute = require('./routes/user_route');
 
 const orderRoute = require('./routes/order_route');
 const courierRoute = require('./routes/courier_route');
+const AdminRoute = require('./routes/Admin_route');
 
 const connectDB = require('./connection/connection');
 const express = require('express');
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 app.use('/', userRoute); // User routes
 app.use('/order', orderRoute);
 app.use('/courier', courierRoute);
+app.use('/admin', AdminRoute);
 const port = 8000;
 const start = async () => {
     try {
