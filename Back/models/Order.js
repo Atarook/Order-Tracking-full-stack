@@ -15,7 +15,7 @@ const OrderSchema = mongoose.Schema({
       courieruserId: {
         type: Number,
         ref: 'user', // Reference the custom userId from User model
-        required: true,
+        required: false,
         default: null,
 
       },

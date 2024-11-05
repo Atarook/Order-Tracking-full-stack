@@ -7,7 +7,8 @@ const User = require('../models/User'); // Ensure you have the User model import
 
 const CreateOrder = async (req, res) => {
   try {
-  
+  // Set the courieruserId to a default value or fetch it from the request body
+  const { courieruserId } = req.body;
     //console.log(req);
     
     const {userId} = req.user; 
@@ -23,7 +24,12 @@ const CreateOrder = async (req, res) => {
     const {_id} = user;
     console.log("adadsadw");
     // Create the new order with the userId from the authenticated user
-    const newOrder = await Order.create({ userId, pickupLocation, dropoffLocation, packageDetails, deliveryTime });
+    const defaultcourieruserId = null; // Replace with your actual default ID
+
+    const newOrder = await Order.create({ 
+      userId, pickupLocation, dropoffLocation, packageDetails, deliveryTime
+      ,
+    });
     
     res.status(201).json({ msg: "Order created successfully", data: newOrder });
   } catch (error) {
