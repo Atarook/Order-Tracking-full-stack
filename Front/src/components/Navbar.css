@@ -1,0 +1,57 @@
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  
+  .nav-link {
+    font-size: 1.1rem;
+    color: #007bff !important;
+  }
+  
+  .nav-link:hover {
+    color: #0056b3 !important;
+  }
+  .header{
+    color: black;
+  }
+  button.nav-link{
+    background-color:transparent;
+    border: 0;
+  }
+  /* Navbar.css */
+.fixed-top {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it's above other elements */
+  }
+  
+  .thin-navbar {
+    height: 50px; /* Adjust height as needed */
+    padding: 0; /* Remove default padding */
+  }
+  
+  .navbar .header {
+    display: flex;
+    flex-direction: column; /* Stack the title and subtitle */
+    margin-bottom: 0; /* Remove margin between title and subtitle */
+  }
+  
+  .navbar h1 {
+    font-size: 18px; /* Adjust font size for the title */
+    margin: 0; /* Remove default margin */
+  }
+  
+  .navbar p {
+    font-size: 12px; /* Adjust font size for the subtitle */
+    margin: 0; /* Remove default margin */
+  }
+  
+  .navbar-nav .nav-link {
+    padding: 8px 15px; /* Adjust padding for thinner links */
+  }
+  
+  .navbar-toggler {
+    padding: 5px; /* Adjust toggler padding */
+  }
+  
