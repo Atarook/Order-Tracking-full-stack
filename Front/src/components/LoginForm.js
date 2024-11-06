@@ -1,28 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import './RegistrationForm.css';
 
-const LoginForm = () => {
+const LoginForm = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [message, setMessage] = useState(''); // State for message
-  const [messageType, setMessageType] = useState(''); // State for message type
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState('');
+  const passwordInputRef = useRef(null);
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8000/login', { email, password });
+      
+      // Get the role and token from the server response
+      const { role, token } = response.data;
 
-  try {
-    const response = await axios.post("http://localhost:8000/login", { email, password });
-    setMessageType("success");
-    setMessage("Login successful!");
-  } catch (error) {
-    const errorMessage = error.response?.data?.msg || "Login failed! Please try again.";
-    setMessageType("error");
-    setMessage(Array.isArray(errorMessage) ? errorMessage.join(", ") : errorMessage);
-  }
-};
+      // Store the token in localStorage (or another secure storage location)
+      localStorage.setItem('token', token);
 
+      // Display success message and call onLoginSuccess with the user's role
+      setMessageType("success");
+      setMessage("Login successful!");
+      onLoginSuccess(role); // Trigger login success callback with the role
+    } catch (error) {
+      setMessageType("error");
+      setMessage("Login failed! Please check your credentials.");
+      passwordInputRef.current.focus();
+    }
+  };
 
   return (
     <div className="form-container">
@@ -40,7 +48,6 @@ const LoginForm = () => {
             required
           />
         </div>
-
         <div className="form-group mb-3">
           <label htmlFor="password">Password</label>
           <div className="input-group">
@@ -52,6 +59,7 @@ const LoginForm = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              ref={passwordInputRef}
             />
             <button
               type="button"
@@ -62,12 +70,7 @@ const LoginForm = () => {
             </button>
           </div>
         </div>
-
-        <button type="submit" className="submit-btn">
-          Login
-        </button>
-
-        {/* Display Popup Message */}
+        <button type="submit" className="submit-btn">Login</button>
         {message && (
           <div className={`popup-message ${messageType === 'success' ? 'popup-success' : 'popup-error'}`}>
             {message}

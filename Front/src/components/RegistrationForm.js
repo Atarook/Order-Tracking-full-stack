@@ -8,12 +8,13 @@ const RegistrationForm = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    phone: ""
+    phone: "",
+    role: "Client" // Default role set to Client
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState(''); // State for message type
+  const [messageType, setMessageType] = useState(""); // State for message type
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,31 +25,30 @@ const RegistrationForm = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (formData.password !== formData.confirmPassword) {
-    setMessage("Passwords do not match!");
-    setMessageType("error");
-    return;
-  }
+    if (formData.password !== formData.confirmPassword) {
+      setMessage("Passwords do not match!");
+      setMessageType("error");
+      return;
+    }
 
-  try {
-    const response = await axios.post("http://localhost:8000/registers", {
-      name: formData.name,
-      email: formData.email,
-      password: formData.password,
-      phone: formData.phone,
-    });
-    setMessageType("success");
-    setMessage("Registration successful!");
-    setFormData({ name: "", email: "", password: "", confirmPassword: "", phone: "" });
-  } catch (error) {
-    const errorMessage = error.response?.data?.msg || "Registration failed! Please try again.";
-    setMessageType("error");
-    setMessage(Array.isArray(errorMessage) ? errorMessage.join(", ") : errorMessage);
-  }
-};
-
+    try {
+      const response = await axios.post("http://localhost:8000/registers", {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        phone: formData.phone,
+        role: formData.role // Include the role in the data sent to the backend
+      });
+      setMessage("Registration successful!");
+      setMessageType("success");
+      setFormData({ name: "", email: "", password: "", confirmPassword: "", phone: "", role: "Client" });
+    } catch (error) {
+      setMessage("Registration failed! Please try again.");
+      setMessageType("error");
+    }
+  };
 
   return (
     <div className="form-container">
@@ -137,16 +137,31 @@ const RegistrationForm = () => {
           />
         </div>
 
+        {/* Role selection dropdown */}
+        <div className="form-group mb-3">
+          <label htmlFor="role">Role</label>
+          <select
+            id="role"
+            name="role"
+            className="form-control"
+            value={formData.role}
+            onChange={handleChange}
+          >
+            <option value="Client">Client</option>
+            <option value="Courier">Courier</option>
+          </select>
+        </div>
+
         <button type="submit" className="submit-btn">
           Register
         </button>
       </form>
 
       {message && (
-          <div className={`popup-message ${messageType === 'success' ? 'popup-success' : 'popup-error'}`}>
-            {message}
-          </div>
-        )}
+        <div className={`popup-message ${messageType === "success" ? "popup-success" : "popup-error"}`}>
+          {message}
+        </div>
+      )}
     </div>
   );
 };
