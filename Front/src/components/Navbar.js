@@ -2,7 +2,15 @@ import React from 'react';
 import './Navbar.css';
 import { FaBox } from 'react-icons/fa';
 
-const Navbar = ({ setIsViewingOrders }) => {
+const Navbar = () => {
+  const handleNavigation = (page) => {
+    if (page === 'order-form') {
+      window.location.href = '/order-form'; // Direct URL navigation for Order Form
+    } else if (page === 'my-orders') {
+      window.location.href = '/my-orders'; // Direct URL navigation for My Orders
+    }
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top thin-navbar">
       <div className="container">
@@ -24,12 +32,12 @@ const Navbar = ({ setIsViewingOrders }) => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-            <button className="nav-link" onClick={() => setIsViewingOrders(false)}>
-        Place a New Order
-      </button>
+              <button className="nav-link" onClick={() => handleNavigation('order-form')}>
+                Place a New Order
+              </button>
             </li>
             <li className="nav-item">
-              <button className="nav-link" onClick={() => setIsViewingOrders(true)}>
+              <button className="nav-link" onClick={() => handleNavigation('my-orders')}>
                 View My Orders
               </button>
             </li>

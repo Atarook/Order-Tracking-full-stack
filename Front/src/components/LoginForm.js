@@ -16,19 +16,34 @@ const LoginForm = ({ onLoginSuccess }) => {
       const response = await axios.post('http://localhost:8000/login', { email, password });
       
       // Get the role and token from the server response
-      const { role, token } = response.data;
+      const { user, token } = response.data;
 
-      // Store the token in localStorage (or another secure storage location)
+      // Store the token and user details in localStorage
       localStorage.setItem('token', token);
+      localStorage.setItem('userId', user.userId);  // Store userId if needed
+      localStorage.setItem('role', user.role);      // Store the role if needed
 
       // Display success message and call onLoginSuccess with the user's role
       setMessageType("success");
       setMessage("Login successful!");
-      onLoginSuccess(role); // Trigger login success callback with the role
+      
+      // Clear the form after successful login
+      setEmail('');
+      setPassword('');
+      
+      // Trigger login success callback with the role
+      onLoginSuccess(user.role); // Trigger login success callback with the user's role
+
     } catch (error) {
-      setMessageType("error");
-      setMessage("Login failed! Please check your credentials.");
-      passwordInputRef.current.focus();
+      // Handle specific errors based on the response from the server
+      if (error.response && error.response.data && error.response.data.msg) {
+        setMessageType("error");
+        setMessage(error.response.data.msg); // Show specific error message from server
+      } else {
+        setMessageType("error");
+        setMessage("Login failed! Please check your credentials.");
+      }
+      passwordInputRef.current.focus(); // Focus on the password input field after failure
     }
   };
 

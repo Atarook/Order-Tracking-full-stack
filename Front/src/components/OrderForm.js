@@ -1,24 +1,62 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Navbar from './Navbar'; // Import the Navbar component
 import './OrderForm.css';
 
-const OrderForm = ({ onOrderSubmit, setIsViewingOrders }) => {
-  const [orderName, setOrderName] = useState(''); // New state for order name
+const OrderForm = ({ setIsViewingOrders }) => {
+  const [orderName, setOrderName] = useState('');
   const [pickupLocation, setPickupLocation] = useState('');
-  const [dropOffLocation, setDropOffLocation] = useState('');
+  const [dropoffLocation, setDropOffLocation] = useState('');
   const [packageDetails, setPackageDetails] = useState('');
   const [deliveryTime, setDeliveryTime] = useState('');
   const [confirmationMessage, setConfirmationMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleOrderSubmit = (e) => {
+  const handleOrderSubmit = async (e) => {
     e.preventDefault();
-    const order = { orderName, pickupLocation, dropOffLocation, packageDetails, deliveryTime }; // Include orderName in the order object
-    onOrderSubmit(order); // Add order to the list in App.js
-    setConfirmationMessage('Your order has been submitted successfully!');
-    setTimeout(() => {
-      setConfirmationMessage(''); // Clear message
-      setIsViewingOrders(true); // Switch to "My Orders" page after submission
-    }, 1000);
+
+    // Get the JWT token from localStorage
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setErrorMessage('You must be logged in to place an order.');
+      return;
+    }
+
+    const orderData = {
+      orderName,
+      pickupLocation,
+      dropoffLocation,
+      packageDetails,
+      deliveryTime,
+    };
+
+    try {
+      const response = await axios.post(
+       'http://localhost:8000/order/creatorder', // Your API endpoint
+        orderData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Pass the token for authentication
+          },
+        }
+      );
+
+      // Handle success response
+      if (response.status === 201) {
+        setConfirmationMessage('Your order has been submitted successfully!');
+        setTimeout(() => {
+          setConfirmationMessage('');
+          setIsViewingOrders(true); // Switch to "My Orders" page after submission
+        }, 1000);
+      }
+    } catch (error) {
+      // Handle error response
+      if (error.response && error.response.data && error.response.data.msg) {
+        setErrorMessage(error.response.data.msg); // Show specific error message from server
+      } else {
+        setErrorMessage('Error submitting order. Please try again.');
+      }
+    }
   };
 
   return (
@@ -55,7 +93,7 @@ const OrderForm = ({ onOrderSubmit, setIsViewingOrders }) => {
               <input
                 type="text"
                 className="form-control"
-                value={dropOffLocation}
+                value={dropoffLocation}
                 onChange={(e) => setDropOffLocation(e.target.value)}
                 required
               />
@@ -83,8 +121,13 @@ const OrderForm = ({ onOrderSubmit, setIsViewingOrders }) => {
               Submit Order
             </button>
           </form>
+
+          {/* Show confirmation or error message */}
           {confirmationMessage && (
             <p className="confirmation-message">{confirmationMessage}</p>
+          )}
+          {errorMessage && (
+            <p className="error-message">{errorMessage}</p>
           )}
         </div>
       </main>

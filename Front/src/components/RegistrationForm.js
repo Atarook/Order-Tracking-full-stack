@@ -26,21 +26,20 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (formData.password !== formData.confirmPassword) {
       setMessage("Passwords do not match!");
       setMessageType("error");
       return;
     }
-
+  
     try {
-      const response = await axios.post("http://localhost:8000/registers", {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-        phone: formData.phone,
-        role: formData.role // Include the role in the data sent to the backend
+      const response = await axios.post("http://localhost:8000/registers", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
+  
       setMessage("Registration successful!");
       setMessageType("success");
       setFormData({ name: "", email: "", password: "", confirmPassword: "", phone: "", role: "Client" });
@@ -49,7 +48,7 @@ const RegistrationForm = () => {
       setMessageType("error");
     }
   };
-
+  
   return (
     <div className="form-container">
       <h2>Register</h2>
@@ -146,9 +145,10 @@ const RegistrationForm = () => {
             className="form-control"
             value={formData.role}
             onChange={handleChange}
+            required
           >
-            <option value="Client">Client</option>
-            <option value="Courier">Courier</option>
+            <option value="customer">Customer</option>
+            <option value="courier">Courier</option>
           </select>
         </div>
 

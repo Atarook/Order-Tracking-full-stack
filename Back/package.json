@@ -7,7 +7,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.7.2",
     "mongoose-id-autoincrement": "^1.0.4",
-    "mongoose-sequence": "^6.0.1"
+    "mongoose-sequence": "^6.0.1",
+    "react-router-dom": "^6.27.0"
   },
   "name": "fullstack-aramex-mern",
   "version": "1.0.0",
