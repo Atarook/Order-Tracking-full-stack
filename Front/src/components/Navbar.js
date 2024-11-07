@@ -8,6 +8,9 @@ const Navbar = () => {
       window.location.href = '/order-form'; // Direct URL navigation for Order Form
     } else if (page === 'my-orders') {
       window.location.href = '/my-orders'; // Direct URL navigation for My Orders
+    } else if (page === 'logout') {
+      // Handle logout logic here
+      window.location.href = '/logout'; // Direct URL navigation for Logout
     }
   };
 
@@ -32,14 +35,13 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <button className="nav-link" onClick={() => handleNavigation('order-form')}>
-                Place a New Order
-              </button>
+              <button className="nav-link btn" onClick={() => handleNavigation('order-form')}>Order Form</button>
             </li>
             <li className="nav-item">
-              <button className="nav-link" onClick={() => handleNavigation('my-orders')}>
-                View My Orders
-              </button>
+              <button className="nav-link btn" onClick={() => handleNavigation('my-orders')}>My Orders</button>
+            </li>
+            <li className="nav-item">
+              <button className="nav-link btn" onClick={() => handleNavigation('logout')}>Logout</button>
             </li>
           </ul>
         </div>
