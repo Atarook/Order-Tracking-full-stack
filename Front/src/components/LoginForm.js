@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { getToken, setToken } from './authHelpers';
 import './RegistrationForm.css';
 
 const LoginForm = () => {
@@ -9,6 +10,7 @@ const LoginForm = () => {
   const [message, setMessage] = useState(''); // State for message
   const [messageType, setMessageType] = useState(''); // State for message type
 
+<<<<<<< Updated upstream
   const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -23,10 +25,50 @@ const LoginForm = () => {
   }
 };
 
+=======
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8000/login', { email, password });
+
+      const { user, token } = response.data;
+
+      // Store the token using the helper function
+      setToken(token);
+      console.log(token);
+      console.log(getToken());
+
+      localStorage.setItem('userId', user.userId);
+      localStorage.setItem('role', user.role);
+
+      setMessageType("success");
+      setMessage("Login successful!");
+
+      setEmail('');
+      setPassword('');
+
+      onLoginSuccess(user.role);
+
+      setTimeout(() => {
+        window.location.href = user.role === 'admin' ? '/admin-dashboard' : '/my-orders';
+      }, 1000);
+
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.msg) {
+        setMessageType("error");
+        setMessage(error.response.data.msg);
+      } else {
+        setMessageType("error");
+        setMessage("Login failed! Please check your credentials.");
+      }
+      passwordInputRef.current.focus();
+    }
+  };
+>>>>>>> Stashed changes
 
   return (
     <div className="form-container">
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleLogin}>
         <h2>Login</h2>
         <div className="form-group">
           <label htmlFor="email">Email</label>

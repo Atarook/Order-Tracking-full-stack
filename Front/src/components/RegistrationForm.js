@@ -8,7 +8,12 @@ const RegistrationForm = () => {
     email: "",
     password: "",
     confirmPassword: "",
+<<<<<<< Updated upstream
     phone: ""
+=======
+    phone: "",
+    role: "customer" // Default role set to Client
+>>>>>>> Stashed changes
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -24,6 +29,7 @@ const RegistrationForm = () => {
   };
 
   const handleSubmit = async (e) => {
+<<<<<<< Updated upstream
   e.preventDefault();
 
   if (formData.password !== formData.confirmPassword) {
@@ -50,6 +56,32 @@ const RegistrationForm = () => {
 };
 
 
+=======
+    e.preventDefault();
+  
+    if (formData.password !== formData.confirmPassword) {
+      setMessage("Passwords do not match!");
+      setMessageType("error");
+      return;
+    }
+  
+    try {
+      const response = await axios.post("http://localhost:8000/registers", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      setMessage("Registration successful!");
+      setMessageType("success");
+      setFormData({ name: "", email: "", password: "", confirmPassword: "", phone: "", role: "" });
+    } catch (error) {
+      setMessage("Registration failed! Please try again.");
+      setMessageType("error");
+    }
+  };
+  
+>>>>>>> Stashed changes
   return (
     <div className="form-container">
       <h2>Register</h2>
