@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './AdminAssignedOrders.css';
 
 const AdminAssignedOrders = () => {
   const [assignedOrders, setAssignedOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch all orders on component mount
   useEffect(() => {
     fetchAssignedOrders();
   }, []);
 
   const fetchAssignedOrders = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/admin/getAllOrders'); // Assuming '/api/orders' calls getAllOrders
+      const response = await axios.get('http://localhost:8000/admin/getAllOrders');
       setAssignedOrders(response.data.data);
       setLoading(false);
     } catch (err) {
@@ -37,19 +37,73 @@ const AdminAssignedOrders = () => {
     }
   };
 
+  const updateOrder = async (orderId) => {
+    // Display a menu of fields to update
+    const choice = prompt(
+      "Select the field you want to update:\n" +
+      "1. Status\n" +
+      "2. Delivery Time\n" +
+      "3. Pickup Location\n" +
+      "4. Dropoff Location\n" +
+      "5. Assigned Courier"
+    );
+  
+    // Define mapping of choice to actual field names in the order schema
+    const fieldMapping = {
+      1: "status",
+      2: "deliveryTime",
+      3: "pickupLocation",
+      4: "dropoffLocation",
+      5: "courieruserId",
+    };
+  
+    const fieldToUpdate = fieldMapping[choice];
+  
+    if (!fieldToUpdate) {
+      alert("Invalid choice. Please try again.");
+      return;
+    }
+  
+    // Prompt for the new value of the chosen field
+    const newValue = prompt(`Enter the new value for ${fieldToUpdate}:`);
+    if (!newValue) {
+      alert("A new value is required to update the order.");
+      return;
+    }
+  
+    try {
+      await axios.put('http://localhost:8000/admin/updateorderstatus', { orderId, updateData: { [fieldToUpdate]: newValue } });
+      fetchAssignedOrders(); // Refresh the order list after updating
+    } catch (err) {
+      setError('Failed to update order');
+    }
+  };
+  
+  const deleteOrder = async (orderId) => {
+    if (!window.confirm("Are you sure you want to delete this order?")) {
+      return;
+    }
+
+    try {
+      await axios.delete('http://localhost:8000/admin/deleteorder', { data: { OrderId: orderId } });
+      fetchAssignedOrders(); // Refresh order list after deleting
+    } catch (err) {
+      setError('Failed to delete order');
+    }
+  };
+
   const handleLogout = () => {
-    // Clear authentication token or any other necessary cleanup
-      <div className="header">
-        <h2>Assigned Orders</h2>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
-    // Redirect to login page
+    // Perform any cleanup here
     window.location.href = '/login';
   };
 
   return (
     <div className="admin-assigned-orders">
-      <h2>Assigned Orders</h2>
+      <div className="header">
+        <h2>Assigned Orders</h2>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
+      
       {loading ? (
         <p>Loading orders...</p>
       ) : error ? (
@@ -79,11 +133,11 @@ const AdminAssignedOrders = () => {
                 <td>{order.pickupLocation}</td>
                 <td>{order.dropoffLocation}</td>
                 <td>{order.status}</td>
-                <td>{order.courieruserId ? order.courieruserId : 'Not Assigned'}</td>
+                <td>{order.courieruserId || 'Not Assigned'}</td>
                 <td>
-                  <button onClick={() => assignOrder(order._id)}>
-                    Assign Courier
-                  </button>
+                  <button onClick={() => assignOrder(order._id)}>Assign Courier</button>
+                  <button onClick={() => updateOrder(order._id)}>Update Order</button>
+                  <button onClick={() => deleteOrder(order._id)}>Delete Order</button>
                 </td>
               </tr>
             ))}

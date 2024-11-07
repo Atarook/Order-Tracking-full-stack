@@ -2,15 +2,14 @@ import React from 'react';
 import './Navbar.css';
 import { FaBox } from 'react-icons/fa';
 
-const Navbar = () => {
+const Navbar = ({ handleLogout }) => {
   const handleNavigation = (page) => {
     if (page === 'order-form') {
-      window.location.href = '/order-form'; // Direct URL navigation for Order Form
+      window.location.href = '/order-form';
     } else if (page === 'my-orders') {
-      window.location.href = '/my-orders'; // Direct URL navigation for My Orders
+      window.location.href = '/my-orders';
     } else if (page === 'logout') {
-      // Handle logout logic here
-      window.location.href = '/logout'; // Direct URL navigation for Logout
+      handleLogout(); // Call the handleLogout function passed as a prop
     }
   };
 

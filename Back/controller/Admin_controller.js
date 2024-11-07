@@ -57,17 +57,23 @@ catch (error) {
 
     const deleteOrder = async (req, res) => {
         try {
-            const { orderId } = req.body;
-            const order = await Order.find({orderId});
-            Order.deleteOne(orderId);
+            const { OrderId } = req.body;
+    
+            // Check if the order exists before attempting to delete it
+            const order = await Order.findOne({ _id: OrderId });
             if (!order) {
                 return res.status(404).json({ msg: "Order not found" });
             }
+    
+            // Delete the order
+            await Order.deleteOne({ _id: OrderId });
+    
             res.status(200).json({ msg: "Order deleted successfully" });
         } catch (error) {
             res.status(400).json({ msg: "Error deleting order", error: error.message });
         }
     };
+    
 
     module.exports = { AssignedOrders, updateOrder,getAllOrders, deleteOrder };
 

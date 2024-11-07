@@ -1,0 +1,106 @@
+/* General body styling */
+body {
+    margin: 0;
+    background-color: #f0f0f0; /* Light background for the page */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Change alignment to allow scroll */
+    min-height: 100vh;
+    padding-top: 80px; /* Offset to prevent navbar from overlapping content */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+  
+  /* Main container */
+  .admin-assigned-orders {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 90%;
+    max-width: 1200px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  
+  /* Title styling */
+  .admin-assigned-orders h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Table styling */
+  .admin-assigned-orders table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed; /* Ensure equal column widths */
+  }
+  
+  .admin-assigned-orders table th,
+  .admin-assigned-orders table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    word-wrap: break-word;
+  }
+  
+  /* Header styling */
+  .admin-assigned-orders table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Row hover effect */
+  .admin-assigned-orders table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Button styling */
+  .admin-assigned-orders .btn {
+    display: inline-block;
+    padding: 12px 24px;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .admin-assigned-orders .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive design for smaller screens */
+  @media (max-width: 768px) {
+    .admin-assigned-orders {
+      padding: 15px;
+    }
+  
+    .admin-assigned-orders table th,
+    .admin-assigned-orders table td {
+      padding: 10px;
+    }
+  
+    .admin-assigned-orders .btn {
+      width: 100%;
+    }
+  
+    /* Navbar Toggle styling for smaller screens */
+    .navbar-toggler {
+      border-color: #fff; /* Make toggle button color white */
+    }
+  
+    .navbar-toggler-icon {
+      background-color: #fff; /* Make icon color white */
+    }
+  }
+  

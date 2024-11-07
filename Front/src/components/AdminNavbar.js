@@ -28,7 +28,7 @@ const handleNavigation = (page) => {
     // localStorage.removeItem('user'); 
 
     // Redirect to login page after logout
-    navigate('/login');
+    window.location.href = '/login';
   };
 
   return (

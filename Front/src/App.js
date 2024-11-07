@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import AdminNavbar from './components/AdminNavbar'; // Example admin navbar
+import AdminNavbar from './components/AdminNavbar';
 import OrderForm from './components/OrderForm';
 import MyOrders from './components/MyOrders';
 import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
-import AdminDashboard from './components/AdminDashboard'; // Example admin component\
-import CourierDashboard from './components/CourierDashboard'; // Example courier component
 import AdminAssignedOrders from './components/AdminAssignedOrders';
+import CourierDashboard from './components/CourierDashboard';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,7 +15,6 @@ const App = () => {
   const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
-    // Check for token and role in local storage on app initialization
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
     if (token && role) {
@@ -35,24 +33,12 @@ const App = () => {
     localStorage.removeItem('role');
     setIsLoggedIn(false);
     setUserRole(null);
-    window.location.href = '/login'; // Redirect to login page after logout
+    window.location.href = '/login';
   };
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
   };
-
-  const currentPage = window.location.pathname;
-
-  useEffect(() => {
-    if (currentPage === '/order-form') {
-      document.title = 'Order Form'; // Set page title for Order Form
-    } else if (currentPage === '/my-orders') {
-      document.title = 'My Orders'; // Set page title for My Orders
-    } else if (currentPage === '/admin-dashboard') {
-      document.title = 'Admin Dashboard'; // Set page title for Admin Dashboard
-    }
-  }, [currentPage]);
 
   if (!isLoggedIn) {
     return (
@@ -89,12 +75,7 @@ const App = () => {
       {userRole === 'admin' && <AdminNavbar />}
       <Routes>
         {userRole === 'admin' && (
-          <>
-            <Route path="/admin-dashboard" element={<AdminDashboard />} />
-            <Route path="/admin-assigned-orders" element={<AdminAssignedOrders />} />
-            <Route path="/order-form" element={<OrderForm />} />
-            <Route path="/my-orders" element={<MyOrders />} />
-          </>
+          <Route path="/admin-assigned-orders" element={<AdminAssignedOrders />} />
         )}
         {userRole === 'courier' && (
           <>
