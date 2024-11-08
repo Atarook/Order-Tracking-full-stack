@@ -8,13 +8,13 @@ const OrderSchema = mongoose.Schema({
     },
     userId: {
         type: Number,
-        ref: 'user', // Reference the custom userId from User model
+        ref: 'User', // Reference the custom userId from User model
         required: true,
       },
 
       courieruserId: {
         type: Number,
-        ref: 'user', // Reference the custom userId from User model
+        ref: 'User', // Reference the custom userId from User model
         required: false,
         default: null,
 

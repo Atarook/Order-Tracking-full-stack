@@ -9,11 +9,11 @@ const AssignedOrders = async (req, res) => {
     const orders = await Order.find({ courieruserId: userId });
     res.status(200).json({ data: orders });
 }
-  
+
     catch (error) {
         res.status(400).json({ msg: "Error fetching orders", error: error.message });
       }
-    
+
     };
 
 const UpdateOrderStatus = async (req ,res) => {
@@ -22,7 +22,7 @@ const UpdateOrderStatus = async (req ,res) => {
         const { userId } = req.user;
         const orders = await Order.find({ courieruserId: userId });
         const { OrderId ,status } = req.body;
-        const order = await orders.find(order => order._id == OrderId);
+        const order = await orders.find(order => order.OrderId == OrderId);
         if (!order) {
             return res.status(404).json({ msg: "Order not found" });
         }
