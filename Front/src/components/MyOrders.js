@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const MyOrders = ({ setIsViewingOrders, setSelectedOrder, setOrders }) => {
+const MyOrders = () => {
   const [orders, setLocalOrders] = useState([]); // Local state to store orders
   const [loading, setLoading] = useState(true); // Loading state to manage UI
+  const [error, setError] = useState(null); // Error state to manage API errors
+  const navigate = useNavigate(); // Use navigate hook
+
+  const handleOrderClick = (orderId) => {
+    console.log('handleOrderClick', orderId)
+    navigate(`/order-details/${orderId}`);
+  };
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/user/orders', {
+        const response = await axios.get('http://localhost:8000/order/getuserorder', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}` // Assuming JWT is in localStorage
           }
@@ -18,6 +26,7 @@ const MyOrders = ({ setIsViewingOrders, setSelectedOrder, setOrders }) => {
       } catch (error) {
         console.error('Error fetching orders:', error);
         setLoading(false);
+        setError('Failed to fetch orders. Please try again.');
       }
     };
 
@@ -26,17 +35,15 @@ const MyOrders = ({ setIsViewingOrders, setSelectedOrder, setOrders }) => {
 
   const cancelOrder = async (orderId) => {
     try {
-      // Call API to cancel the order (backend logic for canceling should be implemented)
       await axios.delete(`http://localhost:8000/order/cancel/${orderId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       });
-
-      // Remove the canceled order from local state
-      setLocalOrders((prevOrders) => prevOrders.filter(order => order._id !== orderId));
+      setLocalOrders((prevOrders) => prevOrders.filter(order => order._id !== orderId)); // Remove canceled order
     } catch (error) {
       console.error('Error canceling order:', error);
+      setError('Failed to cancel order. Please try again.');
     }
   };
 
@@ -45,34 +52,29 @@ const MyOrders = ({ setIsViewingOrders, setSelectedOrder, setOrders }) => {
       <h2>My Orders</h2>
       {loading ? (
         <p>Loading...</p> // Show loading message while fetching orders
+      ) : error ? (
+        <p className="error-message">{error}</p> // Show error message if there was an issue
       ) : orders.length > 0 ? (
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>Order Name</th>
+              <th>ID</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {orders.map((order) => (
-              <tr key={order._id}>
-                <td>{order.orderName}</td>
+              <tr key={order.OrderId}>
+                <td>{order.OrderId}</td>
                 <td>{order.status || 'Pending'}</td>
                 <td>
-                  <button
-                    className="btn btn-info"
-                    onClick={() => {
-                      setSelectedOrder(order); // Set the selected order
-                      setIsViewingOrders(false); // Hide the orders list
-                    }}
-                  >
-                    Details
+                  <button onClick={() => handleOrderClick(order._id)}>
+                    View Order Details
                   </button>
-                  {/* Only show Cancel button if order status is 'Pending' */}
                   {order.status === 'Pending' && (
                     <button
-                      className="btn btn-danger ml-2" // Added margin for spacing
+                      className="btn btn-danger ml-2"
                       onClick={() => cancelOrder(order._id)}
                     >
                       Cancel

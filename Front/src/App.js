@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import AdminNavbar from './components/AdminNavbar';
+import CourierNavbar from './components/CourierNavbar';
 import OrderForm from './components/OrderForm';
 import MyOrders from './components/MyOrders';
+import OrderDetails from './components/OrderDetails'; // Import OrderDetails component
 import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
 import AdminAssignedOrders from './components/AdminAssignedOrders';
@@ -71,26 +73,33 @@ const App = () => {
 
   return (
     <Router>
-      <Navbar handleLogout={handleLogout} />
-      {userRole === 'admin' && <AdminNavbar />}
+      {userRole === 'customer' && <Navbar handleLogout={handleLogout} />}
+      {userRole === 'admin' && <AdminNavbar handleLogout={handleLogout} />}
+      {userRole === 'courier' && <CourierNavbar handleLogout={handleLogout} />}
       <Routes>
         {userRole === 'admin' && (
-          <Route path="/admin-assigned-orders" element={<AdminAssignedOrders />} />
+          <>
+            <Route path="/admin-assigned-orders" element={<AdminAssignedOrders />} />
+            <Route path="*" element={<Navigate to="/admin-assigned-orders" />} />
+          </>
         )}
         {userRole === 'courier' && (
           <>
             <Route path="/courier-dashboard" element={<CourierDashboard />} />
             <Route path="/order-form" element={<OrderForm />} />
             <Route path="/my-orders" element={<MyOrders />} />
+            <Route path="/order-details/:id" element={<OrderDetails />} /> {/* Add OrderDetails route */}
+            <Route path="*" element={<Navigate to="/courier-dashboard" />} />
           </>
         )}
         {userRole === 'customer' && (
           <>
             <Route path="/order-form" element={<OrderForm />} />
             <Route path="/my-orders" element={<MyOrders />} />
+            <Route path="/order-details/:id" element={<OrderDetails />} /> {/* Add OrderDetails route */}
+            <Route path="*" element={<Navigate to="/my-orders" />} />
           </>
         )}
-        <Route path="*" element={<Navigate to={userRole === 'admin' ? '/admin-dashboard' : '/my-orders'} />} />
       </Routes>
     </Router>
   );

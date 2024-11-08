@@ -46,41 +46,55 @@ const CreateOrder = async (req, res) => {
 
 const GetUserOrders = async (req, res) => {
   try {
-    const {userId} = req.user; 
-    console.log("userId",userId);
-    // Ensure the userId is the logged-in user
-    // const user = await User.findOne({ userId });
-    // console.log("adadsadw");
+    const { userId } = req.user; // Extract userId from req.user
+    if (!userId) {
+      return res.status(400).json({ msg: "User ID not found in the request" });
+    }
 
-    // if (!user) {
-    //   return res.status(404).json({ msg: "User not found" });
-    // }
+    console.log("userId", userId); // Log the userId to verify it's correct
 
-    const orders = await Order.find({userId});
+    // Query the Order collection for the logged-in user
+    const orders = await Order.find({ userId });
+
+    if (!orders) {
+      return res.status(404).json({ msg: "No orders found" });
+    }
+
     res.status(200).json({ data: orders });
   } catch (error) {
+    console.error("Error fetching orders:", error); // Log error for debugging
     res.status(400).json({ msg: "Error fetching orders", error: error.message });
   }
 };
 
+module.exports = { GetUserOrders };
+
 const getOrderBYid = async (req, res) => {
-  try {
-    const { id } = req.body;
-    const {userId} = req.user; 
-    const orders = await Order.find({userId});
+   try {
+    const { id } = req.query; // Use query params for GET request
+    const { userId } = req.user;
 
-    const order = await orders.find(order => order._id == id);
+    // Find the order for the user
+    const order = await Order.findOne({ _id: id, userId }).populate('courieruserId');
 
-    const courierId = order.courieruserId;
-    const courier = await User.findOne({userId:courierId});
-    const { name, email, phone } = courier;
-    console.log(courier);
-    
-    res.status(200).json({ data: order, courier: { name, email, phone } });
+    if (!order) {
+      return res.status(404).json({ msg: 'Order not found' });
+    }
 
+    // Get courier details if available
+    const courier = order.courieruserId ? {
+      name: order.courieruserId.name,
+      email: order.courieruserId.email,
+      phone: order.courieruserId.phone
+    } : null;
 
-} catch (error) {
-    res.status(400).json({ msg: "Error fetching orders", error: error.message });
+    res.status(200).json({
+      data: order,
+      courier
+    });
+  } catch (error) {
+    console.error('Error fetching order details:', error);
+    res.status(500).json({ msg: 'Error fetching order details', error: error.message });
   }
 };
 
@@ -104,4 +118,5 @@ catch (error) {
     res.status(400).json({ msg: "Error fetching orders", error: error.message });
   }
 }
+
 module.exports = { CreateOrder, GetUserOrders ,getOrderBYid ,CancelOrder};
