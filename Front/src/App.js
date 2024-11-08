@@ -51,6 +51,10 @@ import RegistrationForm from './components/RegistrationForm';
 import AdminDashboard from './components/AdminDashboard'; // Example admin component\
 import CourierDashboard from './components/CourierDashboard'; // Example courier component
 import AdminAssignedOrders from './components/AdminAssignedOrders';
+<<<<<<< Updated upstream
+=======
+import AssignedOrders from './components/AssignedOrders'; // Assuming AssignedOrders is the new component for courier
+>>>>>>> Stashed changes
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -140,9 +144,14 @@ const App = () => {
         )}
         {userRole === 'courier' && (
           <>
-            <Route path="/courier-dashboard" element={<CourierDashboard />} />
+            <Route path="/assigned-orders" element={<AssignedOrders />} /> {/* Change to AssignedOrders for courier */}
             <Route path="/order-form" element={<OrderForm />} />
             <Route path="/my-orders" element={<MyOrders />} />
+<<<<<<< Updated upstream
+=======
+            <Route path="/order-details/:id" element={<OrderDetails />} /> {/* Add OrderDetails route */}
+            <Route path="*" element={<Navigate to="/assigned-orders" />} /> {/* Redirect to assigned orders page */}
+>>>>>>> Stashed changes
           </>
         )}
         {userRole === 'customer' && (

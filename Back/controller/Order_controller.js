@@ -61,13 +61,24 @@ const GetUserOrders = async (req, res) => {
 
 const getOrderBYid = async (req, res) => {
   try {
+<<<<<<< Updated upstream
     const { id } = req.body;
+=======
+    const { id } = req.params;
+   
+>>>>>>> Stashed changes
     const {userId} = req.user; 
     const orders = await Order.find({userId});
 
     const order = await orders.find(order => order._id == id);
 
     const courierId = order.courieruserId;
+<<<<<<< Updated upstream
+=======
+    if (!courierId) {
+      return res.status(200).json({ data: order });
+    }
+>>>>>>> Stashed changes
     const courier = await User.findOne({userId:courierId});
     const { name, email, phone } = courier;
     console.log(courier);
@@ -79,12 +90,18 @@ const getOrderBYid = async (req, res) => {
     res.status(400).json({ msg: "Error fetching orders", error: error.message });
   }
 };
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 const CancelOrder = async (req, res) => {
   try {
     const { id } = req.body;
     const {userId} = req.user; 
+
     const orders = await Order.find({userId});
     const order = await orders.find(order => order._id == id);
+    
     if (order.status === 'pending') {
       order.status = 'canceled';
       await order.save();

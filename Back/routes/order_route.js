@@ -7,7 +7,12 @@ const {CancelOrder}=require('../controller/Order_controller')
 const authenticateToken = require('../middleware/authenticateToken'); // Adjust the path as necessary
 const router=app.Router()
 router.route('/creatorder').post(authenticateToken,CreateOrder)
+<<<<<<< Updated upstream
 router.route('/getuserorder').get(authenticateToken,GetUserOrders)
 router.route('/getorderbyid').get(authenticateToken,getOrderBYid)
+=======
+router.route('/getuserorder').get(authenticateToken, GetUserOrders);
+router.route('/getorderbyid/:id').get(authenticateToken,getOrderBYid)
+>>>>>>> Stashed changes
 router.route('/cancelorder').post(authenticateToken,CancelOrder)
 module.exports = router;

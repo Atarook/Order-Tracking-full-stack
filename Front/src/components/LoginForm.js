@@ -33,6 +33,7 @@ const LoginForm = () => {
 
       const { user, token } = response.data;
 
+<<<<<<< Updated upstream
       // Store the token using the helper function
       setToken(token);
       console.log(token);
@@ -41,6 +42,15 @@ const LoginForm = () => {
       localStorage.setItem('userId', user.userId);
       localStorage.setItem('role', user.role);
 
+=======
+      // Store the token and user details in localStorage
+      localStorage.setItem('token', token);
+      localStorage.setItem('userId', user.userId);  // Store userId if needed
+      localStorage.setItem('role', user.role);     
+       // Store the role if needed
+      console.log(localStorage.getItem('token'));
+      // Display success message and call onLoginSuccess with the user's role
+>>>>>>> Stashed changes
       setMessageType("success");
       setMessage("Login successful!");
 
