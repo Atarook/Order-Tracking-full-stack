@@ -11,21 +11,6 @@ const LoginForm = ({ onLoginSuccess }) => {
   const passwordInputRef = useRef(null);
 
   const handleSubmit = async (e) => {
-<<<<<<< Updated upstream
-  e.preventDefault();
-
-  try {
-    const response = await axios.post("http://localhost:8000/login", { email, password });
-    setMessageType("success");
-    setMessage("Login successful!");
-  } catch (error) {
-    const errorMessage = error.response?.data?.msg || "Login failed! Please try again.";
-    setMessageType("error");
-    setMessage(Array.isArray(errorMessage) ? errorMessage.join(", ") : errorMessage);
-  }
-};
-
-=======
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8000/login', { email, password });
@@ -61,7 +46,6 @@ const LoginForm = ({ onLoginSuccess }) => {
       passwordInputRef.current.focus(); // Focus on the password input field after failure
     }
   };
->>>>>>> Stashed changes
 
   return (
     <div className="form-container">
