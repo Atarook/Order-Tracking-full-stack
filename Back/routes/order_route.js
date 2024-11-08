@@ -8,6 +8,6 @@ const authenticateToken = require('../middleware/authenticateToken'); // Adjust 
 const router=app.Router()
 router.route('/creatorder').post(authenticateToken,CreateOrder)
 router.route('/getuserorder').get(authenticateToken, GetUserOrders);
-router.route('/getorderbyid').get(authenticateToken,getOrderBYid)
+router.route('/getorderbyid/:id').get(authenticateToken,getOrderBYid)
 router.route('/cancelorder').post(authenticateToken,CancelOrder)
 module.exports = router;

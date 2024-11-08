@@ -13,15 +13,29 @@ const OrderDetails = () => {
     const fetchOrderDetails = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:8000/order/getorderbyid`, {
         
+        // Retrieve token from local storage
+        const token = localStorage.getItem('token'); 
+        if (!token) {
+          setError('User is not authenticated. Please log in.');
+          setLoading(false);
+          return;
+        }
+        console.log(token)
+
+        // Fetch order details with authorization header
+        const response = await axios.get(`http://localhost:8000/order/getorderbyid/${id}`, {
+          headers: {
+            
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         // Log the response to ensure it contains the expected data
         console.log('Order details response:', response.data);
 
-        // Assuming the response contains both the order and courier details
-        setOrderDetails(response.data.data); // Set the order details
+        // Set the order details
+        setOrderDetails(response.data.data);
       } catch (error) {
         console.error('Error fetching order details:', error);
         setError('Failed to fetch order details.');
@@ -49,9 +63,9 @@ const OrderDetails = () => {
   return (
     <div className="order-details">
       <h3>Order Details</h3>
-      <p><strong>Order Name:</strong> {orderDetails.orderId}</p>
+      <p><strong>Order ID:</strong> {orderDetails.OrderId}</p>
       <p><strong>Pickup Location:</strong> {orderDetails.pickupLocation}</p>
-      <p><strong>Drop-off Location:</strong> {orderDetails.dropOffLocation}</p>
+      <p><strong>Drop-off Location:</strong> {orderDetails.dropoffLocation}</p>
       <p><strong>Package Details:</strong> {orderDetails.packageDetails}</p>
       <p><strong>Delivery Time:</strong> {orderDetails.deliveryTime}</p>
       <p><strong>Status:</strong> {orderDetails.status || 'Pending'}</p>
