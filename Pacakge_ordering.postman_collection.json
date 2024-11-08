@@ -3,66 +3,433 @@
 		"_postman_id": "ba27ac20-f160-41b4-9fcb-314c06bf831c",
 		"name": "Pacakge_ordering",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "31542376",
-		"_collection_link": "https://order-tracking.postman.co/workspace/order-tracking-Workspace~b150e6c3-d3aa-4ddf-86d5-e351bd879694/collection/31542376-ba27ac20-f160-41b4-9fcb-314c06bf831c?action=share&source=collection_link&creator=31542376"
+		"_exporter_id": "34266426",
+		"_collection_link": "https://order-tracking.postman.co/workspace/order-tracking-Workspace~b150e6c3-d3aa-4ddf-86d5-e351bd879694/collection/31542376-ba27ac20-f160-41b4-9fcb-314c06bf831c?action=share&source=collection_link&creator=34266426"
 	},
 	"item": [
 		{
-			"name": "user registration",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"ahmedtarek11\",\r\n  \"email\": \"AhmedT11@gmail.com\",\r\n  \"password\": \"ahmedahmed11\",\r\n  \"phone\": \"010101010101\"\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "user",
+			"item": [
+				{
+					"name": "user registration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"idris\",\r\n  \"email\": \"idris@gmail.com\",\r\n  \"password\": \"aaaaaa\",\r\n  \"role\" : \"customer\",\r\n  \"phone\": \"01227423462\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/registers",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"registers"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:8000/registers",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"registers"
-					]
+				{
+					"name": "user login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"AhmedT@gmail.com\",\r\n  \"password\": \"ahmedahmed11\"\r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "user login",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"AhmedT11@gmail.com\",\r\n  \"password\": \"ahmedahmed11\"\r\n\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "admin",
+			"item": [
+				{
+					"name": "Assign order to courier",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI5LCJpYXQiOjE3MzA3MjAyMTUsImV4cCI6MTczMDcyMzgxNX0.JrY479cegskkeDNGgg74QirHUMuD71mh2OstsfUPpmc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"OrderId\" : \"6728b7c8cf5b3f52e2ed0dc5\",\r\n    \"courieruserId\": \"9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/admin/assignedorders",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"admin",
+								"assignedorders"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:8000/Login",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"Login"
-					]
+				{
+					"name": "Update order",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI5LCJpYXQiOjE3MzA3MjAyMTUsImV4cCI6MTczMDcyMzgxNX0.JrY479cegskkeDNGgg74QirHUMuD71mh2OstsfUPpmc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderId\": \"6728b7cbcf5b3f52e2ed0dca\",\r\n    \"updateData\": {\r\n        \"status\": \"shipped\",\r\n        \"deliveryDate\": \"2024-11-07T00:00:00.000Z\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/admin/updateorderstatus",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"admin",
+								"updateorderstatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete order",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI5LCJpYXQiOjE3MzA3MjAyMTUsImV4cCI6MTczMDcyMzgxNX0.JrY479cegskkeDNGgg74QirHUMuD71mh2OstsfUPpmc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"OrderId\" : \"6727adf8c119f9cc35db290e\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/admin/deleteorder",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"admin",
+								"deleteorder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all orders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI5LCJpYXQiOjE3MzA3MjAyMTUsImV4cCI6MTczMDcyMzgxNX0.JrY479cegskkeDNGgg74QirHUMuD71mh2OstsfUPpmc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/admin/getAllOrders",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"admin",
+								"getAllOrders"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "courier",
+			"item": [
+				{
+					"name": "assigned  Orders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI5LCJpYXQiOjE3MzA3MjAyMTUsImV4cCI6MTczMDcyMzgxNX0.JrY479cegskkeDNGgg74QirHUMuD71mh2OstsfUPpmc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/courier/assignedorders",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"courier",
+								"assignedorders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI5LCJpYXQiOjE3MzA3MjAyMTUsImV4cCI6MTczMDcyMzgxNX0.JrY479cegskkeDNGgg74QirHUMuD71mh2OstsfUPpmc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"OrderId\" : \"6727adf8c119f9cc35db290e\",\r\n    \"status\": \"accepted\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/courier/updateorderstatus",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"courier",
+								"updateorderstatus"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "order",
+			"item": [
+				{
+					"name": "create order",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzIzOTI4ZTVjOTQ0MDEyMzFlODkxZmMiLCJpYXQiOjE3MzA2NTI4MjgsImV4cCI6MTczMDY1NjQyOH0.3GLJu1R-cNsR-tTZ33k9cxczoXMfi9AEqXEZGmSTtwE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"courieruserId\": \"29\",\r\n  \"pickupLocation\": \"123 Pickup St\",\r\n  \"dropoffLocation\": \"456 Dropoff Ave\",\r\n  \"packageDetails\": \"Package details here\",\r\n  \"deliveryTime\": \"2023-10-01T10:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/order/creatorder?",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"order",
+								"creatorder"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI4LCJpYXQiOjE3MzA3MDk1ODYsImV4cCI6MTczMDcxMzE4Nn0.3ArKhygu83mqZ41kXBD1yUS4-Up01bVXOsw2t-4h6_s",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"67288c0f16ab267fec890504\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/order/cancelorder",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"order",
+								"cancelorder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all users orders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI4LCJpYXQiOjE3MzA3MTQ0MTYsImV4cCI6MTczMDcxODAxNn0.9gRpOdJ7ewjcHF7mTXHQ6Jhg45zX4PnOnoyxPBZpo8k",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/order/getuserorder",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"order",
+								"getuserorder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get order By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI4LCJpYXQiOjE3MzEwNzc1ODIsImV4cCI6MTczMTA4MTE4Mn0.Kah4unb_tjoo8sDdP4F7oy9Wx3D_HI1UHJyKAWPA444",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/order/getorderbyid/672d4af47d4a7ca46fff4520",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"order",
+								"getorderbyid",
+								"672d4af47d4a7ca46fff4520"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
