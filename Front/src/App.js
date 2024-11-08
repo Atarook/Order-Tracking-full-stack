@@ -1,35 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import AdminNavbar from './components/AdminNavbar';
+import CourierNavbar from './components/CourierNavbar';
+import OrderForm from './components/OrderForm';
+import MyOrders from './components/MyOrders';
+import OrderDetails from './components/OrderDetails'; // Import OrderDetails component
 import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
-import Navbar from './components/Navbar';
+import AdminAssignedOrders from './components/AdminAssignedOrders';
 import CourierDashboard from './components/CourierDashboard';
-import AdminDashboard from './components/AdminDashboard';
-import OrderForm from './components/OrderForm';
-import MyOrders from './components/MyOrders'; // Assuming this is the component for My Orders
 
-function App() {
-  const [isLogin, setIsLogin] = useState(true);
+const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [userRole, setUserRole] = useState(null);
 
-  const toggleForm = () => setIsLogin(!isLogin);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+    if (token && role) {
+      setIsLoggedIn(true);
+      setUserRole(role);
+    }
+  }, []);
 
   const handleLoginSuccess = (role) => {
     setIsLoggedIn(true);
     setUserRole(role);
   };
 
-  // Determine the current path
-  const currentPage = window.location.pathname;
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    setIsLoggedIn(false);
+    setUserRole(null);
+    window.location.href = '/login';
+  };
 
-  useEffect(() => {
-    if (currentPage === '/order-form') {
-      document.title = 'Order Form'; // Set page title for Order Form
-    } else if (currentPage === '/my-orders') {
-      document.title = 'My Orders'; // Set page title for My Orders
-    }
-  }, [currentPage]);
+  const toggleForm = () => {
+    setIsLogin(!isLogin);
+  };
 
   if (!isLoggedIn) {
     return (
@@ -60,41 +71,38 @@ function App() {
     );
   }
 
-
-  
-  // Render different components based on the URL path
-  if (currentPage === '/order-form') {
-    return (
-      <div className="App">
-        <Navbar />
-        <OrderForm />
-      </div>
-    );
-  }
-
-  if (currentPage === '/my-orders') {
-    return (
-      <div className="App">
-        <Navbar />
-        <MyOrders />
-      </div>
-    );
-  }
-
   return (
-    <div className="App">
-      <Navbar />
-      {userRole === 'admin' ? (
-        <AdminDashboard />
-      ) : userRole === 'courier' ? (
-        <CourierDashboard />
-      ) : userRole === 'customer' ? (
-        <OrderForm />
-      ) : (
-        <p>Welcome! You are logged in, but you do not have access to a specific dashboard.</p>
-      )}
-    </div>
+    <Router>
+      {userRole === 'customer' && <Navbar handleLogout={handleLogout} />}
+      {userRole === 'admin' && <AdminNavbar handleLogout={handleLogout} />}
+      {userRole === 'courier' && <CourierNavbar handleLogout={handleLogout} />}
+      <Routes>
+        {userRole === 'admin' && (
+          <>
+            <Route path="/admin-assigned-orders" element={<AdminAssignedOrders />} />
+            <Route path="*" element={<Navigate to="/admin-assigned-orders" />} />
+          </>
+        )}
+        {userRole === 'courier' && (
+          <>
+            <Route path="/courier-dashboard" element={<CourierDashboard />} />
+            <Route path="/order-form" element={<OrderForm />} />
+            <Route path="/my-orders" element={<MyOrders />} />
+            <Route path="/order-details/:id" element={<OrderDetails />} /> {/* Add OrderDetails route */}
+            <Route path="*" element={<Navigate to="/courier-dashboard" />} />
+          </>
+        )}
+        {userRole === 'customer' && (
+          <>
+            <Route path="/order-form" element={<OrderForm />} />
+            <Route path="/my-orders" element={<MyOrders />} />
+            <Route path="/order-details/:id" element={<OrderDetails />} /> {/* Add OrderDetails route */}
+            <Route path="*" element={<Navigate to="/my-orders" />} />
+          </>
+        )}
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;

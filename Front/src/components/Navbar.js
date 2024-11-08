@@ -2,12 +2,14 @@ import React from 'react';
 import './Navbar.css';
 import { FaBox } from 'react-icons/fa';
 
-const Navbar = () => {
+const Navbar = ({ handleLogout }) => {
   const handleNavigation = (page) => {
     if (page === 'order-form') {
-      window.location.href = '/order-form'; // Direct URL navigation for Order Form
+      window.location.href = '/order-form';
     } else if (page === 'my-orders') {
-      window.location.href = '/my-orders'; // Direct URL navigation for My Orders
+      window.location.href = '/my-orders';
+    } else if (page === 'logout') {
+      handleLogout(); // Call the handleLogout function passed as a prop
     }
   };
 
@@ -32,14 +34,13 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <button className="nav-link" onClick={() => handleNavigation('order-form')}>
-                Place a New Order
-              </button>
+              <button className="nav-link btn" onClick={() => handleNavigation('order-form')}>Order Form</button>
             </li>
             <li className="nav-item">
-              <button className="nav-link" onClick={() => handleNavigation('my-orders')}>
-                View My Orders
-              </button>
+              <button className="nav-link btn" onClick={() => handleNavigation('my-orders')}>My Orders</button>
+            </li>
+            <li className="nav-item">
+              <button className="nav-link btn" onClick={() => handleNavigation('logout')}>Logout</button>
             </li>
           </ul>
         </div>
