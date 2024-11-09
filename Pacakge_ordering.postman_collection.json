@@ -73,16 +73,10 @@
 					"name": "Assign order to courier",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI5LCJpYXQiOjE3MzA3MjAyMTUsImV4cCI6MTczMDcyMzgxNX0.JrY479cegskkeDNGgg74QirHUMuD71mh2OstsfUPpmc",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"OrderId\" : \"6728b7c8cf5b3f52e2ed0dc5\",\r\n    \"courieruserId\": \"9\"\r\n}",
+							"raw": "{\r\n    \"OrderId\" : \"672f61f45ce408af67ee4025\",\r\n    \"courieruserId\": \"9\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -107,16 +101,10 @@
 					"name": "Update order",
 					"request": {
 						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI5LCJpYXQiOjE3MzA3MjAyMTUsImV4cCI6MTczMDcyMzgxNX0.JrY479cegskkeDNGgg74QirHUMuD71mh2OstsfUPpmc",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"orderId\": \"6728b7cbcf5b3f52e2ed0dca\",\r\n    \"updateData\": {\r\n        \"status\": \"shipped\",\r\n        \"deliveryDate\": \"2024-11-07T00:00:00.000Z\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"orderId\": \"672f61f45ce408af67ee4025\",\r\n    \"updateData\": {\r\n        \"status\": \"pending\",\r\n        \"deliveryDate\": \"2024-11-07T00:00:00.000Z\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -141,13 +129,7 @@
 					"name": "Delete order",
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI5LCJpYXQiOjE3MzA3MjAyMTUsImV4cCI6MTczMDcyMzgxNX0.JrY479cegskkeDNGgg74QirHUMuD71mh2OstsfUPpmc",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"OrderId\" : \"6727adf8c119f9cc35db290e\"\r\n}",
@@ -178,13 +160,7 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI5LCJpYXQiOjE3MzA3MjAyMTUsImV4cCI6MTczMDcyMzgxNX0.JrY479cegskkeDNGgg74QirHUMuD71mh2OstsfUPpmc",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -220,7 +196,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI5LCJpYXQiOjE3MzA3MjAyMTUsImV4cCI6MTczMDcyMzgxNX0.JrY479cegskkeDNGgg74QirHUMuD71mh2OstsfUPpmc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTczMTE1ODI5MCwiZXhwIjoxNzMxMTYxODkwfQ.70I7qf_y9JIahull8Ps8sm73_ybp4Om3d9NV0sqSb6I",
 								"type": "text"
 							}
 						],
@@ -245,13 +221,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI5LCJpYXQiOjE3MzA3MjAyMTUsImV4cCI6MTczMDcyMzgxNX0.JrY479cegskkeDNGgg74QirHUMuD71mh2OstsfUPpmc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTczMTE1ODI5MCwiZXhwIjoxNzMxMTYxODkwfQ.70I7qf_y9JIahull8Ps8sm73_ybp4Om3d9NV0sqSb6I",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"OrderId\" : \"6727adf8c119f9cc35db290e\",\r\n    \"status\": \"accepted\"\r\n\r\n}",
+							"raw": "{\r\n    \"OrderId\" : 65,\r\n    \"status\": \"accepted\"\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -287,13 +263,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzIzOTI4ZTVjOTQ0MDEyMzFlODkxZmMiLCJpYXQiOjE3MzA2NTI4MjgsImV4cCI6MTczMDY1NjQyOH0.3GLJu1R-cNsR-tTZ33k9cxczoXMfi9AEqXEZGmSTtwE",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI4LCJpYXQiOjE3MzExNTgzNTgsImV4cCI6MTczMTE2MTk1OH0.ts2kiyQHNO2CxrKTHpTnvCjf9jxlqS4Ftcufx9FYowY",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"courieruserId\": \"29\",\r\n  \"pickupLocation\": \"123 Pickup St\",\r\n  \"dropoffLocation\": \"456 Dropoff Ave\",\r\n  \"packageDetails\": \"Package details here\",\r\n  \"deliveryTime\": \"2023-10-01T10:00:00Z\"\r\n}",
+							"raw": "{\r\n  \"courieruserId\": \"13\",\r\n  \"pickupLocation\": \"123 Pickup St\",\r\n  \"dropoffLocation\": \"456 Dropoff Ave\",\r\n  \"packageDetails\": \"orderpostman\",\r\n  \"deliveryTime\": \"2023-10-01T10:00:00Z\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -301,7 +277,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8000/order/creatorder?",
+							"raw": "localhost:8000/order/creatorder",
 							"host": [
 								"localhost"
 							],
@@ -309,12 +285,6 @@
 							"path": [
 								"order",
 								"creatorder"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": null
-								}
 							]
 						}
 					},
@@ -327,13 +297,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI4LCJpYXQiOjE3MzA3MDk1ODYsImV4cCI6MTczMDcxMzE4Nn0.3ArKhygu83mqZ41kXBD1yUS4-Up01bVXOsw2t-4h6_s",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI4LCJpYXQiOjE3MzExNTgzNTgsImV4cCI6MTczMTE2MTk1OH0.ts2kiyQHNO2CxrKTHpTnvCjf9jxlqS4Ftcufx9FYowY",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"67288c0f16ab267fec890504\"\r\n}",
+							"raw": "{\r\n    \"id\": \"672e5422a76d94f7b3269f80\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -364,7 +334,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI4LCJpYXQiOjE3MzA3MTQ0MTYsImV4cCI6MTczMDcxODAxNn0.9gRpOdJ7ewjcHF7mTXHQ6Jhg45zX4PnOnoyxPBZpo8k",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI4LCJpYXQiOjE3MzExNTgzNTgsImV4cCI6MTczMTE2MTk1OH0.ts2kiyQHNO2CxrKTHpTnvCjf9jxlqS4Ftcufx9FYowY",
 								"type": "text"
 							}
 						],
@@ -401,7 +371,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI4LCJpYXQiOjE3MzEwNzc1ODIsImV4cCI6MTczMTA4MTE4Mn0.Kah4unb_tjoo8sDdP4F7oy9Wx3D_HI1UHJyKAWPA444",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI4LCJpYXQiOjE3MzExNTgzNTgsImV4cCI6MTczMTE2MTk1OH0.ts2kiyQHNO2CxrKTHpTnvCjf9jxlqS4Ftcufx9FYowY",
 								"type": "text"
 							}
 						],
@@ -415,7 +385,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8000/order/getorderbyid/672d4af47d4a7ca46fff4520",
+							"raw": "localhost:8000/order/getorderbyid/672f61f45ce408af67ee4025",
 							"host": [
 								"localhost"
 							],
@@ -423,7 +393,7 @@
 							"path": [
 								"order",
 								"getorderbyid",
-								"672d4af47d4a7ca46fff4520"
+								"672f61f45ce408af67ee4025"
 							]
 						}
 					},
