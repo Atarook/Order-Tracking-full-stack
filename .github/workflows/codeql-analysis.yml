@@ -17,11 +17,20 @@ jobs:
 
     strategy:
       matrix:
-        language: [ 'javascript', 'python' ] # Adjust based on your project's languages
+        language: [ 'javascript' ] # Adjust based on your project's languages
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18' # Use the Node.js version your project requires
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./backend # Adjust to the correct directory if needed
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
@@ -30,3 +39,17 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
+
+    # Optional: Docker Linting (separate job if needed)
+    docker_lint:
+      name: Dockerfile Linting
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install hadolint
+        run: sudo apt-get install -y hadolint
+
+      - name: Lint Dockerfile
+        run: hadolint Dockerfile
