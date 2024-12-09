@@ -30,7 +30,6 @@ jobs:
 
     - name: Install dependencies
       run: npm install
-      working-directory: ./Back # Adjust to the correct directory if needed
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
