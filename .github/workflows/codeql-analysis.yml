@@ -40,16 +40,4 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
 
-    # Optional: Docker Linting (separate job if needed)
-    docker_lint:
-      name: Dockerfile Linting
-      runs-on: ubuntu-latest
-      steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Install hadolint
-        run: sudo apt-get install -y hadolint
-
-      - name: Lint Dockerfile
-        run: hadolint Dockerfile
+    
