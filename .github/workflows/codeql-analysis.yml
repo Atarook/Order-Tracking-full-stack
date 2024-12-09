@@ -22,6 +22,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+      with:
+        token: ${{ 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 }}
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
@@ -36,8 +38,7 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
+        token: ${{ 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}}
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
-
-    
