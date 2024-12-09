@@ -7,7 +7,6 @@ on:
   schedule:
     - cron: '0 0 * * 0'
 
-
 jobs:
   analyze:
     name: Analyze
@@ -23,8 +22,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-      with:
-        token: ${{ secrets.PAT_TOKEN }}
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
@@ -39,7 +36,6 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
-        token: ${{ secrets.PAT_TOKEN }}
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
