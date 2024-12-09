@@ -4,6 +4,7 @@ FROM node:18-slim
 # Set the working directory in the container to /usr/src/app
 WORKDIR /app
 
+
 # Copy package.json and package-lock.json
 COPY package*.json ./
 # Copy the .env file
