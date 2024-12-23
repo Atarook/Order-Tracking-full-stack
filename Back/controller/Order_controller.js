@@ -1,6 +1,6 @@
 const express = require('express');
 const Order = require('../models/Order');
-const User = require('../models/User');
+const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
 // Middleware to verify JWT and extract user information
