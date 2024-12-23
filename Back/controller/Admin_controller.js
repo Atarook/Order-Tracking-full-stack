@@ -1,7 +1,7 @@
 const express = require('express'); // Express is imported as express, not app.
 const Order = require('../models/Order');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User'); // Ensure you have the User model imported
+const User = require('../models/user'); // Ensure you have the User model imported
 
 
 const AssignedOrders = async (req, res) => {
