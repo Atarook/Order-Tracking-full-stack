@@ -14,7 +14,7 @@ const AdminAssignedOrders = () => {
 
   const fetchAssignedOrders = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/admin/getAllOrders');
+      const response = await axios.get('http://new-order-back.router-default.apps.rm2.thpm.p1.openshiftapps.com/admin/getAllOrders');
       setAssignedOrders(response.data.data);
       setLoading(false);
     } catch (err) {
