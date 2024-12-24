@@ -14,7 +14,8 @@ const AdminAssignedOrders = () => {
 
   const fetchAssignedOrders = async () => {
     try {
-      const response = await axios.get('http://new-order-back.router-default.apps.rm2.thpm.p1.openshiftapps.com/admin/getAllOrders');
+
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/admin/getAllOrders`);
       setAssignedOrders(response.data.data);
       setLoading(false);
     } catch (err) {
@@ -31,7 +32,7 @@ const AdminAssignedOrders = () => {
     }
 
     try {
-      await axios.post('http://localhost:8000/admin/assignedorders', { OrderId: orderId, courieruserId });
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/admin/assignedorders`, { OrderId: orderId, courieruserId });
       fetchAssignedOrders(); // Refresh order list after assigning
     } catch (err) {
       setError('Failed to assign order');
@@ -73,7 +74,7 @@ const AdminAssignedOrders = () => {
     }
   
     try {
-      await axios.put('http://localhost:8000/admin/updateorderstatus', { orderId, updateData: { [fieldToUpdate]: newValue } });
+      await axios.put(`${process.env.REACT_APP_API_BASE_URL}/admin/updateorderstatus`, { orderId, updateData: { [fieldToUpdate]: newValue } });
       fetchAssignedOrders(); // Refresh the order list after updating
     } catch (err) {
       setError('Failed to update order');
@@ -86,7 +87,7 @@ const AdminAssignedOrders = () => {
     }
 
     try {
-      await axios.delete('http://localhost:8000/admin/deleteorder', { data: { OrderId: orderId } });
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/admin/deleteorder`, { data: { OrderId: orderId } });
       fetchAssignedOrders(); // Refresh order list after deleting
     } catch (err) {
       setError('Failed to delete order');

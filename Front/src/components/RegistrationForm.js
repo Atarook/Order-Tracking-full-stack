@@ -34,7 +34,7 @@ const RegistrationForm = () => {
     }
   
     try {
-      const response = await axios.post("http://localhost:8000/registers", formData, {
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/registers`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

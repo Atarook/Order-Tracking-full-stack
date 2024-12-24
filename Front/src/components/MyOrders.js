@@ -17,7 +17,7 @@ const MyOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/order/getuserorder', {
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/order/getuserorder`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}` // Assuming JWT is in localStorage
           }
@@ -38,7 +38,7 @@ const MyOrders = () => {
     try {
       // API call to cancel the order using POST
       const response = await axios.post(
-        'http://localhost:8000/order/cancelorder',  // Correct endpoint
+        `${process.env.REACT_APP_API_BASE_URL}/order/cancelorder`,  // Correct endpoint
         { id: orderId },  // Pass the order ID
         {
           headers: {
