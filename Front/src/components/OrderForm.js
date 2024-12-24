@@ -32,7 +32,7 @@ const OrderForm = ({ setIsViewingOrders, handleLogout }) => {
 
     try {
       const response = await axios.post(
-        'http://localhost:8000/order/creatorder', // Your API endpoint
+        `${process.env.REACT_APP_API_BASE_URL}/order/creatorder`, // Your API endpoint
         orderData,
         {
           headers: {

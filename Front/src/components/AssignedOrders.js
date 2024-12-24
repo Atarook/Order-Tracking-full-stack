@@ -18,7 +18,7 @@ const AssignedOrders = () => {
     const fetchAssignedOrders = async () => {
       try {
         console.log("Fetching assigned orders...");
-        const response = await axios.get('http://localhost:8000/courier/assignedorders', {
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/courier/assignedorders`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -47,7 +47,7 @@ const AssignedOrders = () => {
       console.log("Updating order status...");
       console.log("Data sent:", { OrderId: orderId, status: newStatus }); // Log the data being sent
       setLoading(true);
-      await axios.post('http://localhost:8000/courier/updateorderstatus', 
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/courier/updateorderstatus`, 
         { OrderId: orderId, status: newStatus },
         {
           headers: {
