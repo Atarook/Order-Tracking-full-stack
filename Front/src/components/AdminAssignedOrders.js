@@ -14,6 +14,7 @@ const AdminAssignedOrders = () => {
 
   const fetchAssignedOrders = async () => {
     try {
+
       const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/admin/getAllOrders`);
       setAssignedOrders(response.data.data);
       setLoading(false);

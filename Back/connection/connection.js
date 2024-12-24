@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 // Use the container name 'mongodb' instead of localhost
-const mongoURI = "mongodb://admin:admin@mongodb:27017";
+const mongoURI = proccess.env.MONGO_URI;
 
 const connectDB = () => {
   mongoose.connect(mongoURI, {
